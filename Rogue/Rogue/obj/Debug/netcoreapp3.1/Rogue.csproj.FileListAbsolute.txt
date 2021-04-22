@@ -1,0 +1,17 @@
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\Rogue.exe
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\Rogue.deps.json
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\Rogue.runtimeconfig.json
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\Rogue.runtimeconfig.dev.json
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\Rogue.dll
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\Rogue.pdb
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\OpenTK.dll
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\RLNET.dll
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\bin\Debug\netcoreapp3.1\RogueSharp.dll
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.csprojAssemblyReference.cache
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.AssemblyInfoInputs.cache
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.AssemblyInfo.cs
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.csproj.CoreCompileInputs.cache
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.csproj.CopyComplete
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.dll
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.pdb
+C:\Users\Abderrahmane\source\repos\Rogue\Rogue\obj\Debug\netcoreapp3.1\Rogue.genruntimeconfig.cache
