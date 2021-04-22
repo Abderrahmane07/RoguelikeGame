@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AmIt9ND86C12t3NiqD5CqCkZPgqETPWyigo0h/aXDKlXvHr4YYBkSU4GHQJUuk4SDKECdbzj5+EtZoqH9bdhaw==",
+  "dgSpecHash": "IlfoS3+gYxlsKicS/Hg98B49mJ8AfujEhFxDBeWsyifvj2BsejDKvSC3DI90pVs/WRMKSAY0mz15PNXX8q3szA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Abderrahmane\\source\\repos\\Rogue\\Rogue\\Rogue.csproj",
+  "projectFilePath": "C:\\Users\\Abderrahmane\\Desktop\\jdid\\RoguelikeGame\\Rogue\\Rogue\\Rogue.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abderrahmane\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Abderrahmane\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

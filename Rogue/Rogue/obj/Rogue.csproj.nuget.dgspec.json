@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Abderrahmane\\source\\repos\\Rogue\\Rogue\\Rogue.csproj": {}
+    "C:\\Users\\Abderrahmane\\Desktop\\jdid\\RoguelikeGame\\Rogue\\Rogue\\Rogue.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Abderrahmane\\source\\repos\\Rogue\\Rogue\\Rogue.csproj": {
+    "C:\\Users\\Abderrahmane\\Desktop\\jdid\\RoguelikeGame\\Rogue\\Rogue\\Rogue.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abderrahmane\\source\\repos\\Rogue\\Rogue\\Rogue.csproj",
+        "projectUniqueName": "C:\\Users\\Abderrahmane\\Desktop\\jdid\\RoguelikeGame\\Rogue\\Rogue\\Rogue.csproj",
         "projectName": "Rogue",
-        "projectPath": "C:\\Users\\Abderrahmane\\source\\repos\\Rogue\\Rogue\\Rogue.csproj",
+        "projectPath": "C:\\Users\\Abderrahmane\\Desktop\\jdid\\RoguelikeGame\\Rogue\\Rogue\\Rogue.csproj",
         "packagesPath": "C:\\Users\\Abderrahmane\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abderrahmane\\source\\repos\\Rogue\\Rogue\\obj\\",
+        "outputPath": "C:\\Users\\Abderrahmane\\Desktop\\jdid\\RoguelikeGame\\Rogue\\Rogue\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
