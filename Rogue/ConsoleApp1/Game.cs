@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using RLNET;
 using ConsoleApp1.Core;
+using ConsoleApp1.Systems;
 
 namespace ConsoleApp1
 {
     class Game
     {
+        public static DungeonMap DungeonMap { get; private set; }
         // On configure la hauteur et la largeur de l'écran qui apparait
         private static readonly int _screenWidth = 100;
         private static readonly int _screenHeight = 70;
@@ -38,6 +40,8 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            DungeonMap = mapGenerator.CreateMap();
             // Ca doit porter exactement le même nom que l'image qu'on importe
             string fontFileName = "terminal8x8.png";
             // Le titre de notre console
@@ -87,6 +91,7 @@ namespace ConsoleApp1
 
             // Tell RLNET to draw the console that we set 
             _rootConsole.Draw();
+            DungeonMap.Draw(_mapConsole);
         }
     }
 }
