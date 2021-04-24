@@ -11,7 +11,6 @@ namespace ConsoleApp1
 {
     class Game
     {
-        public static DungeonMap DungeonMap { get; private set; }
         // On configure la hauteur et la largeur de l'écran qui apparait
         private static readonly int _screenWidth = 100;
         private static readonly int _screenHeight = 70;
@@ -38,10 +37,9 @@ namespace ConsoleApp1
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
 
+        public static DungeonMap DungeonMap { get; private set; }
         static void Main(string[] args)
         {
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
-            DungeonMap = mapGenerator.CreateMap();
             // Ca doit porter exactement le même nom que l'image qu'on importe
             string fontFileName = "terminal8x8.png";
             // Le titre de notre console
@@ -54,6 +52,9 @@ namespace ConsoleApp1
             _messageConsole = new RLConsole(_messageWidth, _messageHeight);
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
+
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            DungeonMap = mapGenerator.CreateMap();
 
             // Set up a handler for RLNET's Update event
             _rootConsole.Update += OnRootConsoleUpdate;
@@ -83,6 +84,7 @@ namespace ConsoleApp1
         // Event handler for RLNET's Render event 
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
+            DungeonMap.Draw(_mapConsole);
             // On 'blit' les sous-consoles
             RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
             RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
@@ -91,7 +93,6 @@ namespace ConsoleApp1
 
             // Tell RLNET to draw the console that we set 
             _rootConsole.Draw();
-            DungeonMap.Draw(_mapConsole);
         }
     }
 }
