@@ -11,6 +11,22 @@ namespace ConsoleApp1.Core
     // Extension de la classe originale de RogueSharp
     class DungeonMap : Map
     {
+        // Methode appelee a chaque mouvement du joueur pour mettre a jour son champ de vision
+        public void UpdatePlayerFieldOfView()
+        {
+            Player player = Game.Player;
+            // Calcul du champ de vision a la base du position du joueur
+            ComputeFov(player.X, player.Y, player.Awareness, true);
+            // Modifier les cellules dans le champ de vision en cellules explorees
+            foreach (Cell cell in GetAllCells())
+            {
+                if (IsInFov(cell.X, cell.Y))
+                {
+                    SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
+                }
+            }
+        }
+
         // La méthode Draw va être appellée à chaque modification pour donner les symboles et les couleurs à chaque cellule
         public void Draw(RLConsole mapConsole)
         {
