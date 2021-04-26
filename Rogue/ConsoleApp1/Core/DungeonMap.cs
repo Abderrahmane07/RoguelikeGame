@@ -27,6 +27,36 @@ namespace ConsoleApp1.Core
             }
         }
 
+        // Retourne true si on est capable de poser le joueur sur la cellule qu'on veut et false sinon
+        public bool SetActorPosition(Actor actor, int x, int y)
+        {
+            // Permet de placer l'acteur si la cellule est walkable
+            if (GetCell(x, y).IsWalkable)
+            {
+                // La cellule ou etait le joueur est walkable maintenant
+                SetIsWalkable(actor.X, actor.Y, true);
+                // Mettre a jour la position de l'acteur 
+                actor.X = x;
+                actor.Y = y;
+                // La nouvelle n'est plus walkable
+                SetIsWalkable(actor.X, actor.Y, false);
+                // Ne pas mettre a jour le champ de vision quand on deplace le joueur 
+                if (actor is Player)
+                {
+                    UpdatePlayerFieldOfView();
+                }
+                return true;
+            }
+            return false;
+        }
+
+        // Methode pour aide
+        public void SetIsWalkable(int x, int y, bool isWalkable)
+        {
+            Cell cell = (Cell)GetCell(x, y);
+            SetCellProperties(cell.X, cell.Y, cell.IsTransparent, isWalkable, cell.IsExplored);
+        }
+
         // La méthode Draw va être appellée à chaque modification pour donner les symboles et les couleurs à chaque cellule
         public void Draw(RLConsole mapConsole)
         {
