@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RLNET;
+using RogueSharp.Random;
 using ConsoleApp1.Core;
 using ConsoleApp1.Systems;
 
@@ -42,13 +43,23 @@ namespace ConsoleApp1
 
         public static Player Player { get; private set; }
         public static DungeonMap DungeonMap { get; private set; }
+
+        // Singleton of IRandom used throughout the game when generating random numbers
+        public static IRandom Random { get; private set; } 
         static void Main(string[] args)
         {
+            // Etablir la seed pour le generateur des nomres aleatoirs
+            int seed = (int)DateTime.UtcNow.Ticks;
+            Random = new DotNetRandom(seed);
+
+            // The title will appear at the top of the console window 
+            // also include the seed used to generate the level
+            string consoleTitle = $"RogueSharp V3 Tuto - Level 1 - Seed {seed}";
+
             CommandSystem = new CommandSystem();
             // Ca doit porter exactement le même nom que l'image qu'on importe
             string fontFileName = "terminal8x8.png";
             // Le titre de notre console
-            string consoleTitle = "Jeu du roguelike - Niveau 1";
             // On informe RLNet que chaque tile est 8x8 pixels et qu'il faut utiliser l'image bitmap qu'on a précisé
             _rootConsole = new RLRootConsole(fontFileName, _screenWidth, _screenHeight, 8, 8, 1f, consoleTitle);
 
@@ -59,7 +70,7 @@ namespace ConsoleApp1
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
             Player = new Player();
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();
 

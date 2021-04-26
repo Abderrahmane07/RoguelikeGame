@@ -11,6 +11,13 @@ namespace ConsoleApp1.Core
     // Extension de la classe originale de RogueSharp
     class DungeonMap : Map
     {
+        public List<Rectangle> Rooms;
+
+        public DungeonMap()
+        {
+            // Initialisation de la liste des rooms quand on cree un nouveau donjon
+            Rooms = new List<Rectangle>();
+        }
         // Methode appelee a chaque mouvement du joueur pour mettre a jour son champ de vision
         public void UpdatePlayerFieldOfView()
         {
