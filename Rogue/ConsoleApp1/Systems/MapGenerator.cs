@@ -66,6 +66,24 @@ namespace ConsoleApp1.Systems
             return _map;
         }
 
+        // Tunnel selon l'axe x
+        private void CreateHorizontalTunnel(int xStart, int xEnd, int yPosition)
+        {
+            for (int x=Math.Min(xStart, xEnd); x<=Math.Max(xStart,xEnd); x++)
+            {
+                _map.SetCellProperties(x, yPosition, true, true);
+            }
+        }
+
+        // Tunnel selon l'axe 
+        private void CreateVerticalTunnel(int yStart, int yEnd, int xPosition)
+        {
+            for (int y = Math.Min(yStart, yEnd); y <= Math.Max(yStart, yEnd); y++)
+            {
+                _map.SetCellProperties(y, xPosition, true, true);
+            }
+        }
+
         // Cette fonction trouve le centre de la première room et met le joueur la bas
         private void PlacePlayer()
         {

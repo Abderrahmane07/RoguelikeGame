@@ -54,7 +54,7 @@ namespace ConsoleApp1
 
             // The title will appear at the top of the console window 
             // also include the seed used to generate the level
-            string consoleTitle = $"RogueSharp V3 Tuto - Level 1 - Seed {seed}";
+            string consoleTitle = $"Jeu du RogueLike - Level 1 - Seed {seed}";
 
             CommandSystem = new CommandSystem();
             // Ca doit porter exactement le même nom que l'image qu'on importe
