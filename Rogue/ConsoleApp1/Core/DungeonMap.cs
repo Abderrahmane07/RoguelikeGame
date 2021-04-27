@@ -34,6 +34,14 @@ namespace ConsoleApp1.Core
             }
         }
 
+
+        // Methode appelee par MapGenerator lors de la creation d'une nouvelle map pour positionner le joueur là-bas
+        public void AddPlayer(Player player)
+        {
+            Game.Player = player;
+            SetIsWalkable(player.X, player.Y, false);
+            UpdatePlayerFieldOfView();
+        }
         // Retourne true si on est capable de poser le joueur sur la cellule qu'on veut et false sinon
         public bool SetActorPosition(Actor actor, int x, int y)
         {

@@ -41,7 +41,7 @@ namespace ConsoleApp1
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
 
-        public static Player Player { get; private set; }
+        public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
 
         // Singleton of IRandom used throughout the game when generating random numbers
@@ -69,7 +69,6 @@ namespace ConsoleApp1
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
-            Player = new Player();
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();

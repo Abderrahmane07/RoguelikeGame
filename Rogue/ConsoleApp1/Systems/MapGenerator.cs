@@ -61,7 +61,23 @@ namespace ConsoleApp1.Systems
                 CreateRoom(room);
             }
 
+            PlacePlayer();
+
             return _map;
+        }
+
+        // Cette fonction trouve le centre de la première room et met le joueur la bas
+        private void PlacePlayer()
+        {
+            Player player = Game.Player;
+            if(player == null)
+            {
+                player = new Player();
+            }
+            player.X = _map.Rooms[0].Center.X;
+            player.Y = _map.Rooms[0].Center.Y;
+
+            _map.AddPlayer(player);
         }
 
         // En ayant une zone du map rectangulaire mettre toutes les proprietes des cellules pour cette zone en true
