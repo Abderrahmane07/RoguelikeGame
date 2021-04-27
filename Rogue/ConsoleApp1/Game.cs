@@ -13,6 +13,7 @@ namespace ConsoleApp1
     class Game
     {
         private static bool _renderRequired = true;
+        private static int _steps = 0;
 
         public static CommandSystem CommandSystem { get; private set; } 
         // On configure la hauteur et la largeur de l'écran qui apparait
@@ -41,6 +42,7 @@ namespace ConsoleApp1
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
 
+        public static MessageLog MessageLog { get; private set; }
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
 
@@ -79,9 +81,16 @@ namespace ConsoleApp1
             _rootConsole.Render += OnRootConsoleRender;
             // Begin RLNET's game loop
 
-            // On colorie et écrit un petit massage pour chaque sous-console
-            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Swatch.DbDeepWater);
-            _messageConsole.Print(1, 1, "Messages", RLColor.White);
+            // L'ancien code pour la partie message
+            //// On colorie et écrit un petit massage pour chaque sous-console
+            //_messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Swatch.DbDeepWater);
+            //_messageConsole.Print(1, 1, "Messages", RLColor.White);
+
+            // Le nouveau code pour message
+            MessageLog = new MessageLog();
+            MessageLog.Add("The rogue is in Level 1");
+            MessageLog.Add($"Level created with seed '{seed}'");
+
 
             _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
             _statConsole.Print(1, 1, "Stats", RLColor.White);
@@ -126,6 +135,7 @@ namespace ConsoleApp1
 
             if (didPlayerAct)
             {
+                MessageLog.Add($"Step # {++_steps}");
                 _renderRequired = true;
             }
             
@@ -137,8 +147,10 @@ namespace ConsoleApp1
             // Ne rien faire si aucun changement n'a ete porte
             if (_renderRequired)
             {
+                MessageLog.Draw(_messageConsole);
                 DungeonMap.Draw(_mapConsole);
                 Player.Draw(_mapConsole, DungeonMap);
+
                 // On 'blit' les sous-consoles
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);

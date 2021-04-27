@@ -99,7 +99,7 @@ namespace ConsoleApp1.Systems
             }
         }
 
-        // Tunnel selon l'axe 
+        // Tunnel selon l'axe y
         private void CreateVerticalTunnel(int yStart, int yEnd, int xPosition)
         {
             for (int y = Math.Min(yStart, yEnd); y <= Math.Max(yStart, yEnd); y++)
