@@ -26,5 +26,7 @@ namespace ConsoleApp1.Core
         public static RLColor Gold = Swatch.DbSun;
 
         public static RLColor Player = Swatch.DbLight;
+
+        public static RLColor KoboldColor = Swatch.DbBrightWood;
     }
 }
