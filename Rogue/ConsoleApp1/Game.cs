@@ -13,7 +13,6 @@ namespace ConsoleApp1
     class Game
     {
         private static bool _renderRequired = true;
-        private static int _steps = 0;
 
         public static CommandSystem CommandSystem { get; private set; } 
         // On configure la hauteur et la largeur de l'écran qui apparait
@@ -91,9 +90,11 @@ namespace ConsoleApp1
             MessageLog.Add("The rogue is in Level 1");
             MessageLog.Add($"Level created with seed '{seed}'");
 
+            // L'ancien code pour la zone stats
+            //_statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
+            //_statConsole.Print(1, 1, "Stats", RLColor.White);
 
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.DbOldStone);
-            _statConsole.Print(1, 1, "Stats", RLColor.White);
+            // Nouveau code pour stats dans OnRootConsoleRender()        
 
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.DbWood);
             _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
@@ -135,7 +136,6 @@ namespace ConsoleApp1
 
             if (didPlayerAct)
             {
-                MessageLog.Add($"Step # {++_steps}");
                 _renderRequired = true;
             }
             
@@ -150,6 +150,8 @@ namespace ConsoleApp1
                 MessageLog.Draw(_messageConsole);
                 DungeonMap.Draw(_mapConsole);
                 Player.Draw(_mapConsole, DungeonMap);
+
+                Player.DrawStats(_statConsole);
 
                 // On 'blit' les sous-consoles
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
