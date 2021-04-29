@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleApp1.Core;
 using RogueSharp;
+using ConsoleApp1.Monsters;
+using RogueSharp.DiceNotation;
 
 namespace ConsoleApp1.Systems
 {
@@ -56,7 +58,7 @@ namespace ConsoleApp1.Systems
                     _map.Rooms.Add(newRoom);
                 }
 
-                // La paartie pour creer les connections entre les differentes rooms
+                // La partie pour creer les connections entre les differentes rooms
                 // Iterer a travers chaque room generee, en commencant par la room 1 au lieu de 0
                 for (int rok=1; rok < _map.Rooms.Count; rok++)
                 {
@@ -86,6 +88,8 @@ namespace ConsoleApp1.Systems
             }
 
             PlacePlayer();
+
+            PlaceMonsters();
 
             return _map;
         }
@@ -130,6 +134,34 @@ namespace ConsoleApp1.Systems
                 for(int y=room.Top+1; y<room.Bottom; y++)
                 {
                     _map.SetCellProperties(x, y, true, true, false);
+                }
+            }
+        }
+
+        // Pour placer les monstres
+        private void PlaceMonsters()
+        {
+            foreach(var room in _map.Rooms)
+            {
+                // Chaque room a 60% de chance de contenir des monstres
+                if (Dice.Roll("1D10") < 7)
+                {
+                    // Generer de 1 a 4 monstres 
+                    var numberOfMonsters = Dice.Roll("1D4");
+                    for (int i =0; i<numberOfMonsters; i++)
+                    {
+                        //Trouver ou mettre le monstre
+                        Point randomRoomLocation = (Point)_map.GetRandomWalkableLocationInRoom(room); // Errue apparaissait ici et pour solution on forcait la nature avec (Point), source d'erreur potentielle. A revoir !
+                        // Si ce n'est pas possible on saute 
+                        if (randomRoomLocation != null)
+                        {
+                            // ? Temporarily hard code this monster to be created at level 1 ?
+                            var monster = Kobold.Create(1);
+                            monster.X = randomRoomLocation.X;
+                            monster.Y = randomRoomLocation.Y;
+                            _map.AddMonster(monster);
+                        }
+                    }
                 }
             }
         }
