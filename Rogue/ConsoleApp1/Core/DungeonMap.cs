@@ -120,18 +120,27 @@ namespace ConsoleApp1.Core
         }
 
         // La méthode Draw va être appellée à chaque modification pour donner les symboles et les couleurs à chaque cellule
-        public void Draw(RLConsole mapConsole)
+        public void Draw(RLConsole mapConsole, RLConsole statConsole)
         {
-            mapConsole.Clear();
             foreach(Cell cell in GetAllCells())
             {
                 SetConsoleSymbolForCell(mapConsole, cell);
             }
 
+            // Garder un index pour savoir ou dessiner les stats du monstre
+            int i = 0;
+
             // On passe par tous les mostres dans la list et on les dessine
             foreach(Monster monster in _monsters)
             {
                 monster.Draw(mapConsole, this);
+                // Quand le monstre est aussi dans le champ de vision dessiner ses stats
+                if(IsInFov(monster.X, monster.Y))
+                {
+                    // Faire appel a la fonction pour dessiner les stats et incrementer l'index apress
+                    monster.DrawStats(statConsole, i);
+                    i++;
+                }
             }
         }
 

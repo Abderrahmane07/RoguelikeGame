@@ -147,11 +147,14 @@ namespace ConsoleApp1
             // Ne rien faire si aucun changement n'a ete porte
             if (_renderRequired)
             {
-                MessageLog.Draw(_messageConsole);
-                DungeonMap.Draw(_mapConsole);
-                Player.Draw(_mapConsole, DungeonMap);
+                _mapConsole.Clear();
+                _statConsole.Clear();
+                _messageConsole.Clear();
 
+                DungeonMap.Draw(_mapConsole, _statConsole);
+                Player.Draw(_mapConsole, DungeonMap);
                 Player.DrawStats(_statConsole);
+                MessageLog.Draw(_messageConsole);
 
                 // On 'blit' les sous-consoles
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);

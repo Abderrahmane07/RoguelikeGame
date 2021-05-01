@@ -38,7 +38,6 @@ namespace ConsoleApp1.Systems
         // Ajouter chaque ligne dans la queue a la console
         public void Draw(RLConsole console)
         {
-            console.Clear();
             string[] lines = _lines.ToArray();
             for ( int i=0; i<lines.Length; i++)
             {

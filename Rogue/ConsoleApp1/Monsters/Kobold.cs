@@ -23,6 +23,7 @@ namespace ConsoleApp1.Monsters
                 DefenseChance = Dice.Roll("10D4"),
                 Gold = Dice.Roll("5D5"),
                 Health = health,
+                MaxHealth=health,
                 Name = "kobold",
                 Speed = 14,
                 Symbol = 'k'
