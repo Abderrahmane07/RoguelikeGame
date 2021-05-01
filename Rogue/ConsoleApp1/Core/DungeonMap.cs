@@ -29,6 +29,19 @@ namespace ConsoleApp1.Core
             SetIsWalkable(monster.X, monster.Y, false);
         }
 
+        // Methode pour enlever le monstre
+        public void RemoveMonster(Monster monster)
+        {
+            _monsters.Remove(monster);
+            // On rend la cellule walkable encore
+            SetIsWalkable(monster.X, monster.Y, true);
+        }
+
+        public Monster GetMonsterAt(int x, int y)
+        {
+            return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
+        }
+
         // Cherche une cellule aleatoire dans la room qui est walkable
         public Point? GetRandomWalkableLocationInRoom(Rectangle room)
         {
