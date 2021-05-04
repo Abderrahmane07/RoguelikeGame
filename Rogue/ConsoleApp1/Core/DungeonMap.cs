@@ -9,7 +9,7 @@ using RLNET;
 namespace ConsoleApp1.Core
 {
     // Extension de la classe originale de RogueSharp
-    class DungeonMap : Map
+    public class DungeonMap : Map
     {
         public List<Rectangle> Rooms;
         private readonly List<Monster> _monsters;
@@ -27,6 +27,7 @@ namespace ConsoleApp1.Core
             _monsters.Add(monster);
             // On rend la cellule unwalkable apres ajouter le monstre
             SetIsWalkable(monster.X, monster.Y, false);
+            Game.SchedulingSystem.Add(monster);
         }
 
         // Methode pour enlever le monstre
@@ -35,6 +36,7 @@ namespace ConsoleApp1.Core
             _monsters.Remove(monster);
             // On rend la cellule walkable encore
             SetIsWalkable(monster.X, monster.Y, true);
+            Game.SchedulingSystem.Remove(monster);
         }
 
         public Monster GetMonsterAt(int x, int y)
@@ -101,6 +103,7 @@ namespace ConsoleApp1.Core
             Game.Player = player;
             SetIsWalkable(player.X, player.Y, false);
             UpdatePlayerFieldOfView();
+            Game.SchedulingSystem.Add(player);
         }
         // Retourne true si on est capable de poser le joueur sur la cellule qu'on veut et false sinon
         public bool SetActorPosition(Actor actor, int x, int y)

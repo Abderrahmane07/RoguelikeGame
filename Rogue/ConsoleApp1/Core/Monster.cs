@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleApp1.Systems;
+using ConsoleApp1.Behaviors;
 using RLNET;
 using RogueSharp;
 
 namespace ConsoleApp1.Core
 {
-    class Monster : Actor
+    public class Monster : Actor
     {
+        public int? TurnsAlerted { get; set; }
+
+        public virtual void PerformAction(CommandSystem commandSystem)
+        {
+            var behavior = new StandardMoveAndAttack();
+            behavior.Act(this, commandSystem);
+        }
         public void DrawStats(RLConsole statConsole, int position)
         {
             // Commencer a l'ordonnee y = 13 qui est le point ou se termine les stats du joueur

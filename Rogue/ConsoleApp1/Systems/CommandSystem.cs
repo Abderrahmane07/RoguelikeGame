@@ -2,14 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using RogueSharp;
 using RogueSharp.DiceNotation;
+using ConsoleApp1.Interfaces;
 using System.Threading.Tasks;
 using ConsoleApp1.Core;
 
 namespace ConsoleApp1.Systems
 {
-    class CommandSystem
+    public class CommandSystem
     {
+        public bool IsPlayerTurn { get; set; }
+
+        public void EndPlayerTurn()
+        {
+            IsPlayerTurn = false;
+        }
+
+        public void ActivateMonsters()
+        {
+            IScheduleable scheduleable = Game.SchedulingSystem.Get();
+            if(scheduleable is Player)
+            {
+                IsPlayerTurn = true;
+                Game.SchedulingSystem.Add(Game.Player);
+            }
+            else
+            {
+                Monster monster = scheduleable as Monster;
+
+                if(monster != null)
+                {
+                    monster.PerformAction(this);
+                    Game.SchedulingSystem.Add(monster);
+                }
+
+                ActivateMonsters();
+            }
+        }
+
+        public void MoveMonster(Monster monster, Cell cell)
+        {
+            if (!Game.DungeonMap.SetActorPosition(monster, cell.X, cell.Y))
+            {
+                if (Game.Player.X == cell.X && Game.Player.Y == cell.Y)
+                {
+                    Attack(monster, Game.Player);
+                }
+            }
+        }
+
         // Retourne true si le joueur peut marcher et false sinon
         public bool MovePlayer(Direction direction)
         {
@@ -172,5 +214,6 @@ namespace ConsoleApp1.Systems
                 Game.MessageLog.Add($"{defender.Name} died and dropped {defender.Gold} gold");
             }
         }
+
     }
 }

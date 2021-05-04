@@ -7,7 +7,7 @@ using RLNET;
 
 namespace ConsoleApp1.Core
 {
-    class Player: Actor 
+    public class Player: Actor 
     {
         public Player()
         {

@@ -7,7 +7,7 @@ using ConsoleApp1.Interfaces;
 
 namespace ConsoleApp1.Systems
 {
-    class SchedulingSystem
+    public class SchedulingSystem
     {
         private int _time;
         private readonly SortedDictionary<int, List<IScheduleable>> _scheduleables;

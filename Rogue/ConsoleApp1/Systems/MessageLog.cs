@@ -9,7 +9,7 @@ namespace ConsoleApp1.Systems
 {
     // Represents a queue of messages that can be added to
     // Has a method for and drawing to an RLConsole
-    class MessageLog
+    public class MessageLog
     {
         // Definition du nombre maximal de ligne a conserver
         private static readonly int _maxLines = 9;

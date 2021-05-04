@@ -9,7 +9,7 @@ using ConsoleApp1.Interfaces;
 
 namespace ConsoleApp1.Core
 {
-    class Actor: IActor, IDrawable
+    public class Actor: IActor, IDrawable, IScheduleable
     {
         // IActor
         private int _attack;
@@ -156,6 +156,15 @@ namespace ConsoleApp1.Core
             {
                 // Quand c'est hors le champ de vision
                 console.Set(X, Y, Colors.Floor, Colors.FloorBackground, '.');
+            }
+        }
+
+        // IScheduleable
+        public int Time
+        {
+            get
+            {
+                return Speed;
             }
         }
 

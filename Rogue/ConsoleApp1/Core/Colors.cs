@@ -8,7 +8,7 @@ using RLNET;
 
 namespace ConsoleApp1.Core
 {
-    class Colors
+    public static class Colors
     {
 
         public static RLColor FloorBackground = RLColor.Black;

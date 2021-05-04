@@ -44,6 +44,7 @@ namespace ConsoleApp1
         public static MessageLog MessageLog { get; private set; }
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
+        public static SchedulingSystem SchedulingSystem { get; set; }
 
         // Singleton of IRandom used throughout the game when generating random numbers
         public static IRandom Random { get; private set; } 
@@ -52,6 +53,8 @@ namespace ConsoleApp1
             // Etablir la seed pour le generateur des nomres aleatoirs
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
+
+            SchedulingSystem = new SchedulingSystem();
 
             // The title will appear at the top of the console window 
             // also include the seed used to generate the level
@@ -109,36 +112,43 @@ namespace ConsoleApp1
         {
             bool didPlayerAct = false;
             RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
-
-            if(keyPress != null)
+            if (CommandSystem.IsPlayerTurn)
             {
-                if(keyPress.Key == RLKey.Up)
+                if (keyPress != null)
                 {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    if (keyPress.Key == RLKey.Up)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    }
+                    else if (keyPress.Key == RLKey.Down)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+                    }
+                    else if (keyPress.Key == RLKey.Left)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
+                    }
+                    else if (keyPress.Key == RLKey.Right)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
+                    }
+                    else if (keyPress.Key == RLKey.Escape)
+                    {
+                        _rootConsole.Close();
+                    }
                 }
-                else if (keyPress.Key == RLKey.Down)
+
+                if (didPlayerAct)
                 {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
-                }
-                else if (keyPress.Key == RLKey.Left)
-                {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
-                }
-                else if (keyPress.Key == RLKey.Right)
-                {
-                    didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
-                }
-                else if (keyPress.Key == RLKey.Escape)
-                {
-                    _rootConsole.Close();
+                    _renderRequired = true;
+                    CommandSystem.EndPlayerTurn();
                 }
             }
-
-            if (didPlayerAct)
+            else
             {
+                CommandSystem.ActivateMonsters();
                 _renderRequired = true;
             }
-            
         }
 
         // Event handler for RLNET's Render event 

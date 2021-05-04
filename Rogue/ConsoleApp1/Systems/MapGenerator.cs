@@ -10,7 +10,7 @@ using RogueSharp.DiceNotation;
 
 namespace ConsoleApp1.Systems
 {
-    class MapGenerator
+    public class MapGenerator
     {
         private readonly int _width;
         private readonly int _height;
