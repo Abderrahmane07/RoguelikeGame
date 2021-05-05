@@ -25,6 +25,11 @@ namespace ConsoleApp1.Core
         public static RLColor Text = Swatch.DbLight;
         public static RLColor Gold = Swatch.DbSun;
 
+        public static RLColor DoorBackground = Swatch.ComplimentDarkest;
+        public static RLColor Door = Swatch.ComplimentLighter;
+        public static RLColor DoorBackgroundFov = Swatch.ComplimentDarker;
+        public static RLColor DoorFov = Swatch.ComplimentLightest;
+
         public static RLColor Player = Swatch.DbLight;
 
         public static RLColor KoboldColor = Swatch.DbBrightWood;

@@ -82,9 +82,11 @@ namespace ConsoleApp1.Systems
 
                 }
             }
+            // Passer par chaque chambre et voir si on va creer des portes
             foreach(Rectangle room in _map.Rooms)
             {
                 CreateRoom(room);
+                CreateDoors(room);
             }
 
             PlacePlayer();
@@ -136,6 +138,78 @@ namespace ConsoleApp1.Systems
                     _map.SetCellProperties(x, y, true, true, false);
                 }
             }
+        }
+
+        // Pour creer les portes
+        private void CreateDoors(Rectangle room)
+        {
+            // Le contour de la chambre
+            int xMin = room.Left;
+            int xMax = room.Right;
+            int yMin = room.Top;
+            int yMax = room.Bottom;
+
+
+            // On depose ces coordonnes de cette chambre dans une liste
+            List<ICell> borderCells = _map.GetCellsAlongLine(xMin, yMin, xMax, yMin).ToList();
+            borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMin, xMin, yMax));
+            borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMax, xMax, yMax));
+            borderCells.AddRange(_map.GetCellsAlongLine(xMax, yMin, xMax, yMax));
+
+            // Parcourir chacune des cellules du contour et chercher ou placer les portes
+            foreach(ICell cell in borderCells)
+            {
+                if (IsPotentialDoor(cell))
+                {
+                    // La porte dooit empecher le champ de vision quand elle est fermee 
+                    _map.SetCellProperties(cell.X, cell.Y, false, true);
+                    _map.Doors.Add(new Door
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        IsOpen = false
+                    });
+                }
+            }
+        }
+
+        // Evalue si la cellule est bonne pour une porte
+        private bool IsPotentialDoor(ICell cell)
+        {
+            // Si la cellule est non walkable alors c'est un mur et donc c'est pas une bonne place a mettre la porte
+            if (!cell.IsWalkable)
+            {
+                return false;
+            }
+
+            // Conserve les coordonnees de toutes les cellules qui l'entoure
+            ICell right = _map.GetCell(cell.X + 1, cell.Y);
+            ICell left = _map.GetCell(cell.X - 1, cell.Y);
+            ICell top = _map.GetCell(cell.X, cell.Y - 1);
+            ICell bottom = _map.GetCell(cell.X, cell.Y + 1);
+
+            // S'assurer qu'il n' y a pas deja une porte
+            if (_map.GetDoor(cell.X, cell.Y) != null || 
+                _map.GetDoor(right.X, right.Y) != null || 
+                _map.GetDoor(left.X, left.Y) != null || 
+                _map.GetDoor(top.X, top.Y) != null || 
+                _map.GetDoor(bottom.X, bottom.Y) != null)
+            {
+                return false;
+            }
+
+            // Ceci est une bonne place pour mettre une porte dans le cote droite ou gauche de la chambre
+            if(right.IsWalkable && left.IsWalkable && !top.IsWalkable && !bottom.IsWalkable)
+            {
+                return true;
+            }
+            // Ceci est une bonne place pour mettre une porte dans le cote haut ou bat de la chambre
+            if (top.IsWalkable && bottom.IsWalkable && !right.IsWalkable && !left.IsWalkable)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         // Pour placer les monstres

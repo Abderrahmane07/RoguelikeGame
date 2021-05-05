@@ -12,6 +12,7 @@ namespace ConsoleApp1.Core
     public class DungeonMap : Map
     {
         public List<Rectangle> Rooms;
+        public List<Door> Doors { get; set; }
         private readonly List<Monster> _monsters;
 
         public DungeonMap()
@@ -19,6 +20,7 @@ namespace ConsoleApp1.Core
             // Initialisation de la liste des rooms et de monstres quand on cree un nouveau donjon
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
+            Doors = new List<Door>();
         }
 
         // Methode pour ajouter le  monstre 
@@ -42,6 +44,27 @@ namespace ConsoleApp1.Core
         public Monster GetMonsterAt(int x, int y)
         {
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
+        }
+
+        // Retourne la porte qui existe dans la position (x, y) ou null s'il n'y a pas de porte
+        public Door GetDoor(int x, int y)
+        {
+            return Doors.SingleOrDefault(d => d.X == x && d.Y == y);
+        }
+
+        // L'acteur ouvre la porte dans la position (x, y)
+        private void OpenDoor(Actor actor, int x, int y)
+        {
+            Door door = GetDoor(x, y);
+            if(door!=null && !door.IsOpen)
+            {
+                door.IsOpen = true;
+                var cell = GetCell(x, y);
+                // Des qu'une porte est ouverte elle devient transparente et permet donc de voir a travers
+                SetCellProperties(x, y, true, cell.IsWalkable, cell.IsExplored);
+
+                Game.MessageLog.Add($"{actor.Name} opened a door");
+            }
         }
 
         // Cherche une cellule aleatoire dans la room qui est walkable
@@ -118,6 +141,8 @@ namespace ConsoleApp1.Core
                 actor.Y = y;
                 // La nouvelle n'est plus walkable
                 SetIsWalkable(actor.X, actor.Y, false);
+                // On essaye d'ouvrir la porte s'il y a jamais une 
+                OpenDoor(actor, x, y);
                 // Ne pas mettre a jour le champ de vision quand on deplace le joueur 
                 if (actor is Player)
                 {
@@ -141,6 +166,11 @@ namespace ConsoleApp1.Core
             foreach(Cell cell in GetAllCells())
             {
                 SetConsoleSymbolForCell(mapConsole, cell);
+            }
+
+            foreach(Door door in Doors)
+            {
+                door.Draw(mapConsole, this);
             }
 
             // Garder un index pour savoir ou dessiner les stats du monstre
