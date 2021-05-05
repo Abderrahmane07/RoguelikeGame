@@ -22,7 +22,7 @@ namespace ConsoleApp1.Systems
         private readonly DungeonMap _map;
 
         // Construire un nouveau MapGenerator requiert les dimensions de cette map
-        public MapGenerator(int width, int height, int maxRooms, int roomMaxSize, int roomMinSize)
+        public MapGenerator(int width, int height, int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel)
         {
             _width = width;
             _height = height;
@@ -38,7 +38,7 @@ namespace ConsoleApp1.Systems
             // Initisalisation de chaque cellule sur la map avec walkable, transparence et expoler en true 
             _map.Initialize(_width, _height);
             // Essayer de placer le max de rooms que specifier dans maxRooms
-            for (int r=_maxRooms; r>0; r--)
+            for (int r = _maxRooms; r > 0; r--)
             {
                 // Determination aleatoire de la taille et de la position des rooms
                 int roomWidth = Game.Random.Next(_roomMinSize, _roomMaxSize);
@@ -60,7 +60,7 @@ namespace ConsoleApp1.Systems
 
                 // La partie pour creer les connections entre les differentes rooms
                 // Iterer a travers chaque room generee, en commencant par la room 1 au lieu de 0
-                for (int rok=1; rok < _map.Rooms.Count; rok++)
+                for (int rok = 1; rok < _map.Rooms.Count; rok++)
                 {
                     // commecons par trouver le centre de la room r et de celle qui la precede
                     int previousRoomCenterX = _map.Rooms[rok - 1].Center.X;
@@ -83,11 +83,13 @@ namespace ConsoleApp1.Systems
                 }
             }
             // Passer par chaque chambre et voir si on va creer des portes
-            foreach(Rectangle room in _map.Rooms)
+            foreach (Rectangle room in _map.Rooms)
             {
                 CreateRoom(room);
                 CreateDoors(room);
             }
+
+            CreateStairs();
 
             PlacePlayer();
 
@@ -99,7 +101,7 @@ namespace ConsoleApp1.Systems
         // Tunnel selon l'axe x
         private void CreateHorizontalTunnel(int xStart, int xEnd, int yPosition)
         {
-            for (int x=Math.Min(xStart, xEnd); x<=Math.Max(xStart,xEnd); x++)
+            for (int x = Math.Min(xStart, xEnd); x <= Math.Max(xStart, xEnd); x++)
             {
                 _map.SetCellProperties(x, yPosition, true, true);
             }
@@ -118,7 +120,7 @@ namespace ConsoleApp1.Systems
         private void PlacePlayer()
         {
             Player player = Game.Player;
-            if(player == null)
+            if (player == null)
             {
                 player = new Player();
             }
@@ -131,9 +133,9 @@ namespace ConsoleApp1.Systems
         // En ayant une zone du map rectangulaire mettre toutes les proprietes des cellules pour cette zone en true
         private void CreateRoom(Rectangle room)
         {
-            for(int x=room.Left+1; x<room.Right; x++)
+            for (int x = room.Left + 1; x < room.Right; x++)
             {
-                for(int y=room.Top+1; y<room.Bottom; y++)
+                for (int y = room.Top + 1; y < room.Bottom; y++)
                 {
                     _map.SetCellProperties(x, y, true, true, false);
                 }
@@ -157,7 +159,7 @@ namespace ConsoleApp1.Systems
             borderCells.AddRange(_map.GetCellsAlongLine(xMax, yMin, xMax, yMax));
 
             // Parcourir chacune des cellules du contour et chercher ou placer les portes
-            foreach(ICell cell in borderCells)
+            foreach (ICell cell in borderCells)
             {
                 if (IsPotentialDoor(cell))
                 {
@@ -189,17 +191,17 @@ namespace ConsoleApp1.Systems
             ICell bottom = _map.GetCell(cell.X, cell.Y + 1);
 
             // S'assurer qu'il n' y a pas deja une porte
-            if (_map.GetDoor(cell.X, cell.Y) != null || 
-                _map.GetDoor(right.X, right.Y) != null || 
-                _map.GetDoor(left.X, left.Y) != null || 
-                _map.GetDoor(top.X, top.Y) != null || 
+            if (_map.GetDoor(cell.X, cell.Y) != null ||
+                _map.GetDoor(right.X, right.Y) != null ||
+                _map.GetDoor(left.X, left.Y) != null ||
+                _map.GetDoor(top.X, top.Y) != null ||
                 _map.GetDoor(bottom.X, bottom.Y) != null)
             {
                 return false;
             }
 
             // Ceci est une bonne place pour mettre une porte dans le cote droite ou gauche de la chambre
-            if(right.IsWalkable && left.IsWalkable && !top.IsWalkable && !bottom.IsWalkable)
+            if (right.IsWalkable && left.IsWalkable && !top.IsWalkable && !bottom.IsWalkable)
             {
                 return true;
             }
@@ -215,14 +217,14 @@ namespace ConsoleApp1.Systems
         // Pour placer les monstres
         private void PlaceMonsters()
         {
-            foreach(var room in _map.Rooms)
+            foreach (var room in _map.Rooms)
             {
                 // Chaque room a 60% de chance de contenir des monstres
                 if (Dice.Roll("1D10") < 7)
                 {
                     // Generer de 1 a 4 monstres 
                     var numberOfMonsters = Dice.Roll("1D4");
-                    for (int i =0; i<numberOfMonsters; i++)
+                    for (int i = 0; i < numberOfMonsters; i++)
                     {
                         //Trouver ou mettre le monstre
                         Point randomRoomLocation = (Point)_map.GetRandomWalkableLocationInRoom(room); // Errue apparaissait ici et pour solution on forcait la nature avec (Point), source d'erreur potentielle. A revoir !
@@ -238,6 +240,23 @@ namespace ConsoleApp1.Systems
                     }
                 }
             }
+        }
+
+        // Pour traiter les echelles
+        private void CreateStairs()
+        {
+            _map.StairsUp = new Stairs
+            {
+                X = _map.Rooms.First().Center.X + 1,
+                Y = _map.Rooms.First().Center.Y,
+                IsUp = true
+            };
+            _map.StairsDown = new Stairs
+            {
+                X = _map.Rooms.Last().Center.X,
+                Y = _map.Rooms.Last().Center.Y,
+                IsUp = false
+            };
         }
     }
 }

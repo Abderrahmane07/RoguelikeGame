@@ -11,12 +11,16 @@ namespace ConsoleApp1.Core
     // Extension de la classe originale de RogueSharp
     public class DungeonMap : Map
     {
+        public Stairs StairsUp { get; set; }
+        public Stairs StairsDown { get; set; }
         public List<Rectangle> Rooms;
         public List<Door> Doors { get; set; }
         private readonly List<Monster> _monsters;
 
         public DungeonMap()
         {
+            Game.SchedulingSystem.Clear();
+
             // Initialisation de la liste des rooms et de monstres quand on cree un nouveau donjon
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
@@ -119,6 +123,12 @@ namespace ConsoleApp1.Core
             }
         }
 
+        // Pour descendre dans les echelles
+        public bool CanMoveDownToNextLevel()
+        {
+            Player player = Game.Player;
+            return StairsDown.X == player.X && StairsDown.Y == player.Y;
+        }
 
         // Methode appelee par MapGenerator lors de la creation d'une nouvelle map pour positionner le joueur là-bas
         public void AddPlayer(Player player)
@@ -172,6 +182,9 @@ namespace ConsoleApp1.Core
             {
                 door.Draw(mapConsole, this);
             }
+
+            StairsUp.Draw(mapConsole, this);
+            StairsDown.Draw(mapConsole, this);
 
             // Garder un index pour savoir ou dessiner les stats du monstre
             int i = 0;

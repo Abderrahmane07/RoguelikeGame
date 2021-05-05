@@ -41,6 +41,8 @@ namespace ConsoleApp1
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
 
+        private static int _mapLevel = 1;
+
         public static MessageLog MessageLog { get; private set; }
         public static Player Player { get; set; }
         public static DungeonMap DungeonMap { get; private set; }
@@ -58,7 +60,7 @@ namespace ConsoleApp1
 
             // The title will appear at the top of the console window 
             // also include the seed used to generate the level
-            string consoleTitle = $"Jeu du RogueLike - Level 1 - Seed {seed}";
+            string consoleTitle = $"Jeu du RogueLike - Level {_mapLevel} - Seed {seed}";
 
             CommandSystem = new CommandSystem();
             // Ca doit porter exactement le même nom que l'image qu'on importe
@@ -73,7 +75,7 @@ namespace ConsoleApp1
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7);
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7, _mapLevel);
             DungeonMap = mapGenerator.CreateMap();
             DungeonMap.UpdatePlayerFieldOfView();
 
@@ -135,6 +137,18 @@ namespace ConsoleApp1
                     else if (keyPress.Key == RLKey.Escape)
                     {
                         _rootConsole.Close();
+                    }
+                    else if (keyPress.Key == RLKey.Period)
+                    {
+                        if (DungeonMap.CanMoveDownToNextLevel())
+                        {
+                            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7, ++_mapLevel);
+                            DungeonMap = mapGenerator.CreateMap();
+                            MessageLog = new MessageLog();
+                            CommandSystem = new CommandSystem();
+                            _rootConsole.Title = $"Jeu du RogueLike - Level {_mapLevel}";
+                            didPlayerAct = true;
+                        }
                     }
                 }
 
