@@ -67,7 +67,10 @@
     <Compile Include="Interfaces\IBehavior.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IScheduleable.cs" />
-    <Compile Include="Monsters\Kobold.cs" />
+    <Compile Include="Monsters\ContamineMasque.cs" />
+    <Compile Include="Monsters\ContamineSansMasque.cs" />
+    <Compile Include="Monsters\Escroc.cs" />
+    <Compile Include="Monsters\Police.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CommandSystem.cs" />
     <Compile Include="Systems\MapGenerator.cs" />

@@ -14,6 +14,7 @@ namespace ConsoleApp1.Core
         // IActor
         private int _attack;
         private int _attackChance;
+        private int _vol;
         private int _awareness;
         private int _defense;
         private int _defenseChance;
@@ -43,6 +44,17 @@ namespace ConsoleApp1.Core
             set
             {
                 _attackChance = value;
+            }
+        }
+        public int Vol
+        {
+            get
+            {
+                return _vol;
+            }
+            set
+            {
+                _vol = value;
             }
         }
         public int Awareness

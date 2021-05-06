@@ -18,16 +18,16 @@ namespace ConsoleApp1.Core
         public static RLColor PrimaryDarkest = new RLColor(29, 45, 42);
 
         public static RLColor SecondaryLightest = new RLColor(116, 120, 126);
-        public static RLColor SecondaryLighter = new RLColor(93, 97, 105);
-        public static RLColor Secondary = new RLColor(72, 77, 85);
+        public static RLColor SecondaryLighter = new RLColor(84, 67, 253);
+        public static RLColor Secondary = new RLColor(25, 20, 75);
         public static RLColor SecondaryDarker = new RLColor(51, 56, 64);
         public static RLColor SecondaryDarkest = new RLColor(31, 38, 47);
 
         public static RLColor AlternateLightest = new RLColor(190, 184, 174);
         public static RLColor AlternateLighter = new RLColor(158, 151, 138);
-        public static RLColor Alternate = new RLColor(129, 121, 107);
+        public static RLColor Alternate = new RLColor(84, 68, 255);
         public static RLColor AlternateDarker = new RLColor(97, 89, 75);
-        public static RLColor AlternateDarkest = new RLColor(71, 62, 45);
+        public static RLColor AlternateDarkest = new RLColor(26, 20, 77);
 
         public static RLColor ComplimentLightest = new RLColor(190, 180, 174);
         public static RLColor ComplimentLighter = new RLColor(158, 147, 138);
@@ -53,5 +53,7 @@ namespace ConsoleApp1.Core
         public static RLColor DbSky = new RLColor(109, 194, 202);
         public static RLColor DbSun = new RLColor(218, 212, 94);
         public static RLColor DbLight = new RLColor(222, 238, 214);
+        public static RLColor Sang = new RLColor(235, 64, 52);
+        public static RLColor SangClair = new RLColor(247, 109, 99);
     }
 }

@@ -33,5 +33,7 @@ namespace ConsoleApp1.Core
             statConsole.Print(1, 7, $"Defense:  {Defense} ({DefenseChance}%)", Colors.Text);
             statConsole.Print(1, 9, $"Gold:     {Gold}", Colors.Gold);
         }
+
+
     }
 }

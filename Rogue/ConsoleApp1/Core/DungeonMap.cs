@@ -24,7 +24,7 @@ namespace ConsoleApp1.Core
             // Initialisation de la liste des rooms et de monstres quand on cree un nouveau donjon
             Rooms = new List<Rectangle>();
             _monsters = new List<Monster>();
-            Doors = new List<Door>();
+            Doors = new List<Door>(); // On devrait probablement ajouter Game.SchedulingSystem.Clear()
         }
 
         // Methode pour ajouter le  monstre 
@@ -221,7 +221,7 @@ namespace ConsoleApp1.Core
                 }
                 else
                 {
-                    console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, '#');
+                    console.Set(cell.X, cell.Y, Colors.WallFov, Colors.WallBackgroundFov, '&');
                 }
             }
             // Si la cellule est hors le champ de vision

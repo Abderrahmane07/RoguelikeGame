@@ -17,6 +17,9 @@ namespace ConsoleApp1.Systems
         private readonly int _maxRooms;
         private readonly int _roomMaxSize;
         private readonly int _roomMinSize;
+        private readonly int _mapLevel;
+
+
 
 
         private readonly DungeonMap _map;
@@ -29,6 +32,7 @@ namespace ConsoleApp1.Systems
             _maxRooms = maxRooms;
             _roomMaxSize = roomMaxSize;
             _roomMinSize = roomMinSize;
+            _mapLevel = mapLevel;
             _map = new DungeonMap();
         }
 
@@ -227,12 +231,12 @@ namespace ConsoleApp1.Systems
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         //Trouver ou mettre le monstre
-                        Point randomRoomLocation = (Point)_map.GetRandomWalkableLocationInRoom(room); // Errue apparaissait ici et pour solution on forcait la nature avec (Point), source d'erreur potentielle. A revoir !
+                        Point randomRoomLocation = (Point)_map.GetRandomWalkableLocationInRoom(room); // Erreur apparaissait ici et pour solution on forcait la nature avec (Point), source d'erreur potentielle. A revoir !
                         // Si ce n'est pas possible on saute 
                         if (randomRoomLocation != null)
                         {
-                            // ? Temporarily hard code this monster to be created at level 1 ?
-                            var monster = Kobold.Create(1);
+                            // ? On garde temporairement Create initie avec 1 comme niveau ?
+                            var monster = ContamineMasque.Create(1);
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
                             _map.AddMonster(monster);

@@ -32,6 +32,9 @@ namespace ConsoleApp1.Core
 
         public static RLColor Player = Swatch.DbLight;
 
-        public static RLColor KoboldColor = Swatch.DbBrightWood;
+        public static RLColor ContamineMasque = Swatch.SangClair;
+        public static RLColor ContamineSansMasque = Swatch.Sang;
+        public static RLColor Escroc = new RLColor(255, 165, 0);
+        public static RLColor Police = new RLColor(51, 160, 255);
     }
 }

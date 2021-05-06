@@ -8,25 +8,26 @@ using RogueSharp.DiceNotation;
 
 namespace ConsoleApp1.Monsters
 {
-    class Kobold: Monster
+    public class ContamineMasque: Monster
     {
-        public static Kobold Create(int level)
+        public static ContamineMasque Create(int level)
         {
             int health = Dice.Roll("2D5");
-            return new Kobold
+            return new ContamineMasque
             {
                 Attack = Dice.Roll("1D3") + level / 3,
                 AttackChance = Dice.Roll("25D3"),
+                Vol = 0,
                 Awareness = 10,
-                Color = Colors.KoboldColor,
+                Color = Colors.ContamineMasque,
                 Defense = Dice.Roll("1D3") + level / 3,
-                DefenseChance = Dice.Roll("10D4"),
+                DefenseChance = Dice.Roll("5D4"),
                 Gold = Dice.Roll("5D5"),
                 Health = health,
                 MaxHealth=health,
-                Name = "kobold",
+                Name = "Contamine Masque",
                 Speed = 14,
-                Symbol = 'k'
+                Symbol = 'c'
             };
             
         }
