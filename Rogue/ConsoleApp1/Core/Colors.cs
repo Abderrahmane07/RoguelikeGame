@@ -36,5 +36,22 @@ namespace ConsoleApp1.Core
         public static RLColor ContamineSansMasque = Swatch.Sang;
         public static RLColor Escroc = new RLColor(255, 165, 0);
         public static RLColor Police = new RLColor(51, 160, 255);
+
+        public static RLColor JourneeLightest = new RLColor(255, 255, 160);
+        public static RLColor JourneeLighter = new RLColor(249, 249, 114);
+        public static RLColor Journee = new RLColor(227, 227, 75);
+        public static RLColor JourneeDarker = new RLColor(219, 219, 39);
+        public static RLColor JourneeDarkest = new RLColor(187, 187, 17);
+
+        public static RLColor Journee2 = new RLColor(191, 191, 52);
+        public static RLColor JourneeCdV = new RLColor(227, 227, 75);
+
+
+        
+        public static RLColor Soir = new RLColor(1, 68, 97);
+        public static RLColor SoirCdV = new RLColor(9, 133, 186);
+        
+        public static RLColor Nuit = new RLColor(51, 45, 65);
+        public static RLColor NuitCdV = new RLColor(115, 101, 148);
     }
 }

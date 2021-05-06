@@ -227,7 +227,7 @@ namespace ConsoleApp1.Systems
                 if (Dice.Roll("1D10") < 7)
                 {
                     // Generer de 1 a 4 monstres 
-                    var numberOfMonsters = Dice.Roll("1D4");
+                    var numberOfMonsters = Dice.Roll("1D5");
                     for (int i = 0; i < numberOfMonsters; i++)
                     {
                         //Trouver ou mettre le monstre
@@ -236,7 +236,7 @@ namespace ConsoleApp1.Systems
                         if (randomRoomLocation != null)
                         {
                             // ? On garde temporairement Create initie avec 1 comme niveau ?
-                            var monster = ContamineMasque.Create(1);
+                            Monster monster = RepartitionMonstres.LesMonstres(_mapLevel);
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
                             _map.AddMonster(monster);

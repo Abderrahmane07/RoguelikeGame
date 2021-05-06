@@ -75,6 +75,7 @@
     <Compile Include="Systems\CommandSystem.cs" />
     <Compile Include="Systems\MapGenerator.cs" />
     <Compile Include="Systems\MessageLog.cs" />
+    <Compile Include="Systems\RepartitionMonstres.cs" />
     <Compile Include="Systems\SchedulingSystem.cs" />
   </ItemGroup>
   <ItemGroup>

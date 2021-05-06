@@ -18,10 +18,9 @@ namespace ConsoleApp1.Behaviors
             Player player = Game.Player;
             FieldOfView monsterFov = new FieldOfView(dungeonMap);
 
-            // If the monster has not been alerted, compute a field-of-view 
-            // Use the monster's Awareness value for the distance in the FoV check
-            // If the player is in the monster's FoV then alert it
-            // Add a message to the MessageLog regarding this alerted status
+            // Si le monstre n'est pas aletrte on calcul son champ de vison qui depend de Awareness 
+            // et on verifie si le joueur est dans le champ du monstre et on l'alerte le cas echeant
+            // par un message dans Message.Log
             if (!monster.TurnsAlerted.HasValue)
             {
                 monsterFov.ComputeFov(monster.X, monster.Y, monster.Awareness, true);
@@ -47,9 +46,9 @@ namespace ConsoleApp1.Behaviors
                 }
                 catch (PathNotFoundException)
                 {
-                    // Si le monstre voit le joueur mais est incapable de trouvr une trajectoire vers lui potentiellement 
+                    // Si le monstre voit le joueur mais est incapable de trouver une trajectoire vers lui potentiellement 
                     // parcque son chemin est bloqué, on écrit un message ou on le signale 
-                    Game.MessageLog.Add($"{monster.Name} waits for a turn");
+                    Game.MessageLog.Add($"{monster.Name} attend pour un tour");
                 }
 
                 // On met de retour les cellules en non walkable
@@ -61,13 +60,11 @@ namespace ConsoleApp1.Behaviors
                 {
                     try
                     {
-                        // TODO: This should be path.StepForward() but there is a bug in RogueSharp V3
-                        // The bug is that a Path returned from a PathFinder does not include the source Cell
                         commandSystem.MoveMonster(monster, (Cell) path.StepForward());
                     }
                     catch(NoMoreStepsException)
                     {
-                        Game.MessageLog.Add($"{monster.Name} growls in frustration");
+                        Game.MessageLog.Add($"{monster.Name} attend impatiemment");
                     }
                 }
 
